@@ -1,47 +1,59 @@
 import pygame as pg
 from colors import *
+from time import sleep
 pg.init ()
-#mixer.init ()
 
-class Area (pg.sprite):
+class Area (pg.sprite.Sprite):
     def __init__ (self, x, y, image, speed):
-        super ().__init__ (self)
-        self.image = pg.transform.scale (pg.image.load (image), (50, 50))
-        self.rect = self.get_rect ()
+        super ().__init__ ()
+        self.image = pg.transform.scale (pg.image.load (image), (150, 150))
+        self.rect = self.image.get_rect ()
         self.rect.x = x
         self.rect.y = y
         self.speed = speed
 
     def reset (self):
-        window.blit (image, (self.rect.x, self.rect.y))
+        window.blit (self.image, (self.rect.x, self.rect.y))
 
     def move_up (self):
-        image.rect.y += self.speed
+        window.fill ((Beige))
+        self.rect.y -= self.speed
+        window.blit (self.image, (self.rect.x, self.rect.y))
     def move_down (self):
-        image.rect.y -= self.speed
+        window.fill ((Beige))
+        self.rect.y += self.speed
+        window.blit (self.image, (self.rect.x, self.rect.y))
     def move_right (self):
-        image.rect.x += self.speed
+        window.fill ((Beige))
+        self.rect.x += self.speed
+        window.blit (self.image, (self.rect.x, self.rect.y))
     def move_left (self):
-        image.rect.x -= self.speed
+        window.fill ((Beige))
+        self.rect.x -= self.speed
+        window.blit (self.image, (self.rect.x, self.rect.y))
 
-ImageName = "object.png"
-window = pg.display.set_mode ((300, 250))
-pg.display.set_caption ("Наздожиналки")
-window.fill ((Beige))
-MyProfile = Area (0, 0, ImageName, 10)
+window = pg.display.set_mode ((1800, 700))
+pg.display.set_caption ("Доганялки")
+my_profile = Area (0, 0, "object.png", 10)
 x = 0
 y = 0
-enemy = Area (0, 0, "enemy.jpg", 15)
+enemy = Area (1300, 350, "enemy.png", 15)
+finish = Area (1600, 550, "finish.png", 0)
 '''mixer.music.load ("GameMusic2.ogg")
 mixer.music.play ()'''
-'''mixer.music.load ("GameMusic.ogg")
-mixer.music.play ()'''
-#window.blit (MyProfile, (x, y))
+pg.mixer.music.load ("GameMusic.ogg")
+pg.mixer.music.play ()
 clock = pg.time.Clock ()
-prapor = True
-while prapor:
-    for e in pg.event.get ():
-        prapor = False
+charge = pg.key.get_pressed ()
+game = True
+while game:
+    window.fill ((Beige))
+    my_profile.reset ()
+    enemy.reset ()
+    finish.reset ()
+    for e in pg.event.get():
+        if e.type == pg.QUIT:
+            game = False
     pg.display.update ()
     clock.tick (60)
     for i in range (3):
@@ -49,14 +61,14 @@ while prapor:
     for a in range (3):
         enemy.move_left ()
 
-'''    if k_down and y <= 240:
-        MyProfile.move_down ()
+    if charge[pg.K_DOWN] and y <= 690:
+        my_profile.move_down ()
 
-    if k_up and y >= 10:
-        MyProfile.move_up ()
+    if charge[pg.K_UP] and y >= 10:
+        my_profile.move_up ()
 
-    if k_left and x >= 10:
-        MyProfile.move_left ()
+    if charge[pg.K_LEFT] and x >= 10:
+        my_profile.move_left ()
 
-    if k_right and x <= 290:
-        MyProfile.move_right'''
+    if charge[pg.K_RIGHT] and x <= 1790:
+        my_profile.move_right ()
