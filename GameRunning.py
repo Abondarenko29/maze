@@ -25,7 +25,7 @@ class TextArea (Area):
             self.rect.y -= self.speed
         if key[pg.K_DOWN] and self.rect.y <= 600:
             self.rect.y += self.speed
-class Enemy (Area):
+class Label (Area):
     def move (self):
         if self.direction == "right":
             self.rect.x += self.speed
@@ -41,8 +41,12 @@ pg.display.set_caption ("Лабіринт")
 my_profile = TextArea (0, 0, "object.png", 5)
 x = 0
 y = 0
-enemy = Enemy (1500, 450, "enemy.png", 20)
+enemy = Label (1500, 450, "enemy.png", 7)
+enemy2 = Label (200, 450, "enemy.png", 7)
+enemy3 = Label (900, 450, "enemy.png", 7)
 enemy.direction = "left"
+enemy2.direction = "right"
+enemy3.direction = "left"
 finish = Area (1600, 550, "finish.png", 0)
 enemy.direction = "right"
 clock = pg.time.Clock ()
@@ -52,11 +56,16 @@ pg.mixer.music.load ("GameMusic.ogg")
 pg.mixer.music.play ()
 clock = pg.time.Clock ()
 game = True
+die = pg.mixer.Sound ("die.ogg")
 while game:
     window.fill ((Beige))
     my_profile.reset ()
     my_profile.move ()
     enemy.move ()
+    enemy2.move ()
+    enemy3.move ()
+    enemy3.reset ()
+    enemy2.reset ()
     enemy.reset ()
     finish.reset ()
     for e in pg.event.get ():
