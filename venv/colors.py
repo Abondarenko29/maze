@@ -1,0 +1,14 @@
+LightBlue = 0, 255, 255
+Red = 255, 0, 0
+Blue = 0, 0, 255
+Green = 0, 170, 0
+White = 255, 255, 255
+Black = 0, 0, 0
+Yellow = 255, 255, 0
+Purple = 155, 0, 255
+Pink = 255, 0, 105
+Orange = 255, 100, 0
+Grey = 50, 50, 50
+Beige = 255, 255, 230
+Lime = 0, 255, 0
+Brown = 130, 0, 0
